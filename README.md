@@ -4,6 +4,8 @@ A console-style home screen for the web: a tile row, function bar, quick menu, t
 generative music, built-in games, and an App Store of ~100 web apps — all controllable with
 keyboard, mouse or a gamepad.
 
+**Live demo:** https://mumbo235.github.io/fakes4/ (browser version)
+
 ## Run it
 
 **Desktop app (recommended)** — every web app opens right on the console:
@@ -13,7 +15,7 @@ npm install
 ./start.sh              # or: ./start.sh --fullscreen
 ```
 
-**In a browser** — just open `index.html`. Sites that block embedding (YouTube, Gmail…) open in a new tab instead.
+**In a browser** — open the live demo above, or `index.html` locally. Sites that block embedding (YouTube, Gmail…) open in a new tab instead.
 
 ## Controls
 
