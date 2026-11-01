@@ -1,0 +1,14 @@
+{
+  "name": "orbit-console",
+  "version": "1.0.0",
+  "description": "ORBIT — a console-style home screen for the web",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "fullscreen": "electron . --fullscreen"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1"
+  }
+}
