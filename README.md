@@ -4,7 +4,7 @@ A console-style home screen for the web: a tile row, function bar, quick menu, t
 generative music, built-in games, and an App Store of ~100 web apps — all controllable with
 keyboard, mouse or a gamepad.
 
-**Live demo:** https://mumbo235.github.io/fakes4/ (browser version)
+**Live demo:** https://mumbo235.github.io/orbit-console/ (browser version)
 
 ## Run it
 
