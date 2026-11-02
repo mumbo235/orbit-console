@@ -733,6 +733,8 @@ function drawBG(t,dt=16.7){
 function bgLoop(t){
   requestAnimationFrame(bgLoop);
   if(document.hidden)return;
+  // The page can load before the window has a size (no resize event follows), so keep checking.
+  if(W!==Math.max(1,Math.round(innerWidth*.5))||H!==Math.max(1,Math.round(innerHeight*.5)))resize();
   if(cur||phase==='rest'){
     if(!bgStill){drawBG(t);if(cur){cx.filter='blur(13px) saturate(1.2)';cx.drawImage(cv,0,0);cx.filter='none'}bgStill=true}
     lastBG=t;return}
@@ -817,7 +819,7 @@ function iconHTML(t){
 const glyph=t=>t.svg?I[t.svg]:t.web?logo(t.web):`<span class="mono">${esc((t.name||'?')[0])}</span>`;
 
 /* ================= home ================= */
-let zone='row',sel=Math.min(S.lastTile||0,99),fsel=0,asel=0,cur=null,booted=false;
+let zone='row',sel=0,fsel=0,asel=0,cur=null,booted=false;
 const FB=[
   {id:'notifs',name:'Notifications',svg:'bell',fn:()=>openApp('notifs')},
   {id:'store',name:'App Store',svg:'bag',fn:()=>openApp('store')},
@@ -846,7 +848,6 @@ let infoQueued=false;
 function updateSel(full){
   document.documentElement.style.setProperty('--sel',sel);
   if(!full)$$('#row .tile').forEach((el,i)=>{el.classList.toggle('sel',i===sel);el.classList.toggle('past',i<sel)});
-  S.lastTile=sel;
   // Holding a direction moves several tiles quickly; rebuild the title and cards below at most once per frame.
   if(!infoQueued){infoQueued=true;requestAnimationFrame(renderInfo)}
 }
@@ -1036,6 +1037,7 @@ function showUsers(){
 }
 function login(){
   phase='on';sfx.whoosh();$('#screen').classList.add('fade');$('#home').classList.add('on');
+  sel=0;asel=0;setZone('row');// every login starts on Activity
   renderHome();renderStatus();renderFbar();
   setTimeout(()=>{toast('Welcome back, '+S.name,'Signed in · '+new Date().toLocaleDateString([],{weekday:'long',month:'short',day:'numeric'}),`<span class="tlogo">${avatar()}</span>`);trophy('boot')},700);
   if(!booted){booted=true;log('Signed in','login')}
