@@ -245,6 +245,13 @@ label.f{display:block;font-size:12px;opacity:.65;margin:0 0 6px;letter-spacing:.
 .users{display:flex;flex-direction:column;align-items:center;gap:22px;animation:fadeup .7s ease}
 .users .big{width:150px;height:150px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 4px #fff,0 0 60px color-mix(in srgb,var(--accent) 60%,transparent)}
 .users .nm{font-size:28px;font-weight:300}
+.ulist{display:flex;gap:42px;max-width:92vw;overflow-x:auto;padding:16px 30px;scrollbar-width:none}
+.uc{display:flex;flex-direction:column;align-items:center;gap:16px;color:#fff;opacity:.55;transform:scale(.82);transition:opacity .25s,transform .25s}
+.uc .big{width:150px;height:150px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 2px rgba(255,255,255,.35)}
+.uc .nm{font-size:22px;font-weight:300;white-space:nowrap}
+.uc.on{opacity:1;transform:none}
+.uc.on .big{box-shadow:0 0 0 4px #fff,0 0 60px color-mix(in srgb,var(--accent) 60%,transparent)}
+.nuf{display:flex;gap:10px;width:min(420px,86vw)}.nuf .inp{flex:1}
 .users .wel{font-size:14px;opacity:.6;letter-spacing:.15em;text-transform:uppercase}
 @keyframes fadeup{from{opacity:0;transform:translateY(20px)}}
 #rest{position:fixed;inset:0;z-index:40;background:#000;display:none;place-items:end center;padding-bottom:10vh;cursor:pointer}
@@ -314,6 +321,14 @@ label.f{display:block;font-size:12px;opacity:.65;margin:0 0 6px;letter-spacing:.
 .avs button{width:54px;height:54px;border-radius:50%;padding:3px;background:none;border:2px solid transparent}
 .avs button .avt{border-radius:50%}
 .avs button.on{border-color:#fff}
+.avt.photo{background:#000;overflow:hidden}
+.avt.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.avt.addu{background:rgba(255,255,255,.1);border:2px dashed rgba(255,255,255,.4)}
+.avt.addu svg{width:40%;height:40%;filter:none}
+.urow{display:flex;align-items:center;gap:14px;padding:12px 14px}
+.urow .ua{width:44px;height:44px;flex:none;border-radius:50%;overflow:hidden}
+.urow b{display:block;font-weight:500}.urow small{font-size:12px;opacity:.6}
+.ulst{display:flex;flex-direction:column;gap:8px;align-items:stretch}.ulst>.btn{align-self:flex-start}
 .wrow{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid var(--line)}
 .wrow .wi{width:38px;height:38px;flex:none;border-radius:5px;display:grid;place-items:center;font-size:19px;background:linear-gradient(150deg,var(--g1),var(--g2))}
 .wrow .wn{flex:1;min-width:0}
@@ -615,8 +630,10 @@ const DEFAULT_BM=['wiki','google','desmos','excalidraw','osm','windy','photopea'
 const AVATARS=[['user','#4f8cff','#1b3a9a'],['bolt','#ffcc33','#c2410c'],['flame','#ff6b4a','#8f1d2c'],['rocket','#8a7dff','#2e1f8f'],['planet','#2fd1c5','#0b4f6a'],
   ['crown','#f5c542','#7a4a10'],['heart','#ff5e8a','#7a1240'],['diamond','#7fe0ff','#1d5a9a'],['leaf','#5fdc7a','#14572c'],['moon','#a9b4ff','#252a6a'],
   ['music','#ff7ad9','#6a1f8f'],['pad','#ffa25a','#7a2c1a'],['eye','#c3c9d6','#3a4152'],['wave','#5bb0ff','#0b3a7a'],['star','#ffe066','#a35a00'],['spark','#e0e6ff','#4a5aa8']];
-const avIdx=()=>{const n=+S.avatar;return Number.isInteger(n)&&n>=0&&n<AVATARS.length?n:0};
-const avatar=(i=avIdx(),cls='')=>{const[ic,c1,c2]=AVATARS[i];return`<span class="avt ${cls}" style="--g1:${c1};--g2:${c2}">${I[ic]}</span>`};
+const avIdx=(u=S)=>{const n=+u.avatar;return Number.isInteger(n)&&n>=0&&n<AVATARS.length?n:0};
+const avIcon=(i,cls='')=>{const[ic,c1,c2]=AVATARS[i];return`<span class="avt ${cls}" style="--g1:${c1};--g2:${c2}">${I[ic]}</span>`};
+// An account's picture: its custom photo if it has one, otherwise its preset icon.
+const avatar=(u=S,cls='')=>u.photo?`<span class="avt photo ${cls}"><img src="${u.photo}" alt=""></span>`:avIcon(avIdx(u),cls);
 const icn=k=>I[k]||I.spark;
 const TROPHIES=[
   {id:'boot',name:'Power On',desc:'Boot up your console for the first time',tier:'bronze'},
@@ -643,15 +660,38 @@ const LS='orbit-console.v1';
 function defaults(){return{name:'Player 1',avatar:0,theme:'classic',sound:true,vol:.6,clock24:false,bootAnim:true,waves:true,particles:true,
   apps:DEFAULT_APPS.map(id=>({...CATALOG.find(c=>c.id===id)})),bookmarks:DEFAULT_BM.slice(),history:[],trophies:{},
   stats:{opened:0,pages:0,best:0,boots:0},notifs:[],activity:[],lastTile:0}}
-let S;
-try{S=Object.assign(defaults(),JSON.parse(localStorage.getItem(LS)||'{}'))}catch{S=defaults()}
-if(typeof S.avatar!=='number')S.avatar=0;
-S.stats.bests=S.stats.bests||{};
-for(const x of [...S.activity,...S.notifs])if(!I[x.icon])x.icon=x.icon==='🏆'?'trophy':'spark';
-for(const a of S.apps){const c=CATALOG.find(x=>x.id===a.id);if(c)Object.assign(a,{logo:c.logo,fav:c.fav,c1:c.c1,c2:c.c2,url:c.url,name:c.name})}
-for(const b of S.bookmarks){const c=CATALOG.find(x=>x.url===b.url);if(c)Object.assign(b,{logo:c.logo,fav:c.fav,c1:c.c1,c2:c.c2,name:c.name})}
-function save(){try{localStorage.setItem(LS,JSON.stringify(S))}catch{}}
+// Each account keeps its own full state (apps, theme, trophies…). The first account keeps the original storage key
+// so existing data carries over; the account list (names, avatars, photos) lives under its own key.
+const LSA='orbit-console.accounts';
+const keyOf=id=>id==='p1'?LS:LS+':'+id;
+function loadState(id){
+  let s;try{s=Object.assign(defaults(),JSON.parse(localStorage.getItem(keyOf(id))||'{}'))}catch{s=defaults()}
+  if(typeof s.avatar!=='number')s.avatar=0;
+  if(typeof s.photo!=='string')s.photo='';
+  s.stats.bests=s.stats.bests||{};
+  for(const x of [...s.activity,...s.notifs])if(!I[x.icon])x.icon=x.icon==='🏆'?'trophy':'spark';
+  for(const a of s.apps){const c=CATALOG.find(x=>x.id===a.id);if(c)Object.assign(a,{logo:c.logo,fav:c.fav,c1:c.c1,c2:c.c2,url:c.url,name:c.name})}
+  for(const b of s.bookmarks){const c=CATALOG.find(x=>x.url===b.url);if(c)Object.assign(b,{logo:c.logo,fav:c.fav,c1:c.c1,c2:c.c2,name:c.name})}
+  return s;
+}
+let ACC=null;
+try{ACC=JSON.parse(localStorage.getItem(LSA)||'null')}catch{}
+if(!ACC||!Array.isArray(ACC.list)||!ACC.list.length){const s0=loadState('p1');ACC={list:[{id:'p1',name:s0.name,avatar:s0.avatar,photo:s0.photo}],last:'p1'}}
+if(!ACC.list.some(u=>u.id===ACC.last))ACC.last=ACC.list[0].id;
+let UID=ACC.last,S=loadState(UID);
+function saveAcc(){try{localStorage.setItem(LSA,JSON.stringify(ACC))}catch{}}
+function save(){
+  const u=ACC.list.find(x=>x.id===UID);
+  if(u&&(u.name!==S.name||u.avatar!==S.avatar||u.photo!==S.photo)){Object.assign(u,{name:S.name,avatar:S.avatar,photo:S.photo});saveAcc()}
+  try{localStorage.setItem(keyOf(UID),JSON.stringify(S))}catch{toast('Storage is full','Try a smaller photo or remove an account.',I.bell)}
+}
 const theme=()=>THEMES[S.theme]||THEMES.classic;
+// Custom photos are centre-cropped and shrunk to a 256px JPEG so they fit comfortably in local storage.
+function photoData(file){return new Promise((res,rej)=>{
+  const url=URL.createObjectURL(file),im=new Image();
+  im.onload=()=>{const n=256,c=document.createElement('canvas');c.width=c.height=n;const k=Math.min(im.width,im.height);
+    c.getContext('2d').drawImage(im,(im.width-k)/2,(im.height-k)/2,k,k,0,0,n,n);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',.85))};
+  im.onerror=()=>{URL.revokeObjectURL(url);rej()};im.src=url})}
 
 /* ================= audio ================= */
 let AC=null;
@@ -970,11 +1010,12 @@ function confirmBox(title,text,okLabel,fn){
 }
 function powerMenu(){
   modal(`<h3>Power Options</h3><p>Choose what to do with your console.</p><div class="mbtns">
+    <button class="btn" id="pUser">${I.user}Switch User</button>
     <button class="btn" id="pRest">${I.moon}Enter Rest Mode</button>
     <button class="btn" id="pRe">${I.restart}Restart</button>
     <button class="btn" id="pOff">${I.power}Turn Off</button>${NATIVE?`<button class="btn" id="pExit">${I.close}Exit to desktop</button>`:''}
     <button class="btn" id="pNo">Cancel</button></div>`);
-  $('#pRest').onclick=()=>{closeModal();restMode()};$('#pRe').onclick=()=>{closeModal();powerOff(true)};$('#pOff').onclick=()=>{closeModal();powerOff(false)};$('#pNo').onclick=closeModal;if($('#pExit'))$('#pExit').onclick=()=>orbitNative.quit();
+  $('#pUser').onclick=()=>signOut();$('#pRest').onclick=()=>{closeModal();restMode()};$('#pRe').onclick=()=>{closeModal();powerOff(true)};$('#pOff').onclick=()=>{closeModal();powerOff(false)};$('#pNo').onclick=closeModal;if($('#pExit'))$('#pExit').onclick=()=>orbitNative.quit();
 }
 $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
 let quickOn=false;
@@ -992,6 +1033,7 @@ function openQuick(){
     <button class="qi" data-q="theme">${I.palette}Theme<small>${esc(theme().name)}</small></button>
     <button class="qi" data-q="settings">${I.gear}Settings</button>
     <div class="qsep"></div>
+    <button class="qi" data-q="user">${I.user}Switch user<small>${esc(S.name)}</small></button>
     <button class="qi" data-q="rest">${I.moon}Enter rest mode</button>
     <button class="qi" data-q="restart">${I.restart}Restart</button>
     <button class="qi" data-q="off">${I.power}Turn off</button>
@@ -1008,6 +1050,7 @@ $('#qp').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b
   if(q==='sound'){S.sound=!S.sound;save()}
   if(q==='theme'){const k=Object.keys(THEMES);setTheme(k[(k.indexOf(S.theme)+1)%k.length])}
   if(q==='settings'){closeQuick();openApp('settings');return}
+  if(q==='user'){signOut();return}
   if(q==='rest'){closeQuick();restMode();return}
   if(q==='restart'){closeQuick();powerOff(true);return}
   if(q==='off'){closeQuick();powerOff(false);return}
@@ -1031,15 +1074,55 @@ function boot(){
   s.innerHTML=`<div class="boot">${LOGO}</div>`;sfx.chime();
   setTimeout(()=>{if(phase==='boot')showUsers()},3300);
 }
-function showUsers(){
-  phase='users';const s=$('#screen');
-  s.innerHTML=`<div class="users"><div class="wel">Who's using the console?</div><div class="big">${avatar(avIdx(),'xl')}</div><div class="nm">${esc(S.name)}</div></div><div class="press"><kbd>Enter</kbd> Log in</div>`;
+/* --- user select: one card per account plus "New User" --- */
+let uSel=0,uForm=false;
+function showUsers(){phase='users';uForm=false;uSel=Math.max(0,ACC.list.findIndex(u=>u.id===UID));renderUsers()}
+function renderUsers(){
+  const L=ACC.list,s=$('#screen');
+  s.innerHTML=`<div class="users"><div class="wel">Who's using the console?</div><div class="ulist">${L.map((u,i)=>`<button class="uc" data-u="${i}" tabindex="-1"><div class="big">${avatar(u,'xl')}</div><div class="nm">${esc(u.name)}</div></button>`).join('')}<button class="uc" data-u="${L.length}" tabindex="-1"><div class="big"><span class="avt addu">${I.plus}</span></div><div class="nm">New User</div></button></div></div><div class="press"></div>`;
+  $$('.uc',s).forEach(b=>b.onclick=e=>{e.stopPropagation();uSel=+b.dataset.u;sfx.ok();usersOk()});
+  markUsers();
+}
+function markUsers(){
+  $$('#screen .uc').forEach((b,i)=>b.classList.toggle('on',i===uSel));
+  $('#screen .uc.on')?.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+  $('#screen .press').innerHTML=`<kbd>←</kbd> <kbd>→</kbd> Choose &nbsp; <kbd>Enter</kbd> ${uSel===ACC.list.length?'Create user':'Log in'}`;
+}
+function usersInput(b){
+  if(uForm){if(b==='back'){sfx.back();renderUsers();uForm=false}return}
+  if(b==='left'&&uSel>0){uSel--;sfx.move();markUsers()}
+  else if(b==='right'&&uSel<ACC.list.length){uSel++;sfx.move();markUsers()}
+  else if(b==='ok')usersOk();
+}
+function usersOk(){if(uSel===ACC.list.length)newUserForm();else{switchUser(ACC.list[uSel].id);login()}}
+function newUserForm(){
+  uForm=true;const s=$('#screen'),av=Math.floor(Math.random()*AVATARS.length);
+  s.innerHTML=`<div class="users"><div class="wel">Create a user</div><div class="big">${avIcon(av,'xl')}</div>
+    <div class="nuf"><input class="inp" id="nuName" maxlength="20" placeholder="Online ID" spellcheck="false" autocomplete="off"><button class="btn pri" id="nuGo">${I.check}Create</button></div>
+    <div class="muted">You can pick an avatar or add your own photo later in Settings → Profile.</div></div><div class="press"><kbd>Enter</kbd> Create &nbsp; <kbd>Esc</kbd> Cancel</div>`;
+  const inp=$('#nuName');setTimeout(()=>inp.focus(),30);
+  const go=()=>{const n=inp.value.trim();if(!n){sfx.err();inp.focus();return}
+    const id='u'+Date.now().toString(36);const st=defaults();st.name=n;st.avatar=av;
+    try{localStorage.setItem(keyOf(id),JSON.stringify(st))}catch{}
+    ACC.list.push({id,name:n,avatar:av,photo:''});saveAcc();uForm=false;sfx.ok();switchUser(id);login()};
+  $('#nuGo').onclick=go;
+  inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();go()}else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();sfx.back();uForm=false;renderUsers()}};
+}
+// Swap the whole console over to another account's state.
+function switchUser(id){
+  if(id===UID)return;
+  save();UID=id;S=loadState(id);ACC.last=id;saveAcc();
+  document.documentElement.style.setProperty('--accent',theme().accent);bgStill=false;booted=false;
+}
+function signOut(){
+  if(cur)closeApp(true);closeQuick();closeModal();Music.stop();save();
+  $('#home').classList.remove('on');$('#screen').classList.remove('fade');sfx.back();showUsers();
 }
 function login(){
-  phase='on';sfx.whoosh();$('#screen').classList.add('fade');$('#home').classList.add('on');
+  phase='on';ACC.last=UID;saveAcc();const first=!S.activity.length;sfx.whoosh();$('#screen').classList.add('fade');$('#home').classList.add('on');
   sel=0;asel=0;setZone('row');// every login starts on Activity
   renderHome();renderStatus();renderFbar();
-  setTimeout(()=>{toast('Welcome back, '+S.name,'Signed in · '+new Date().toLocaleDateString([],{weekday:'long',month:'short',day:'numeric'}),`<span class="tlogo">${avatar()}</span>`);trophy('boot')},700);
+  setTimeout(()=>{toast((first?'Welcome, ':'Welcome back, ')+S.name,'Signed in · '+new Date().toLocaleDateString([],{weekday:'long',month:'short',day:'numeric'}),`<span class="tlogo">${avatar()}</span>`);trophy('boot')},700);
   if(!booted){booted=true;log('Signed in','login')}
 }
 function restMode(){if(cur)closeApp(true);phase='rest';$('#rest').classList.add('on');Music.stop();trophy('nap');tone(600,.3,'sine',.05);tone(400,.4,'sine',.05,.15)}
@@ -1058,7 +1141,7 @@ $('#screen').addEventListener('click',()=>route('ok'));
 function route(b){
   if(phase==='off'){boot();return}
   if(phase==='boot'){if(b==='ok')showUsers();return}
-  if(phase==='users'){if(b==='ok')login();return}
+  if(phase==='users'){usersInput(b);return}
   if(phase==='rest'){wake();return}
   if(phase!=='on')return;
   if(modalOn){if(b==='back'){sfx.back();modalBack()}else if(['up','down','left','right'].includes(b))spatial($('#mb'),b);else if(b==='ok'){const a=document.activeElement;if(a&&$('#mb').contains(a)){sfx.ok();a.click()}}return}
@@ -1245,8 +1328,13 @@ APPS.settings={title:()=>'Settings',icon:()=>({svg:'gear',c1:'#5a6b8f',c2:'#232c
         <div class="card"><label class="f">Volume — ${Math.round(S.vol*100)}%</label><input type="range" id="sVol" min="0" max="1" step="0.05" value="${S.vol}"></div>
         <button class="btn" id="sTest">${I.vol}Play test sound</button></div>`;
       if(tab==='profile')h=`<div class="h1">Profile</div><div class="sec grid" style="max-width:520px"><div><label class="f">Online ID</label><input class="inp" id="pName" maxlength="20" value="${esc(S.name)}"></div>
-        <div><label class="f">Avatar</label><div class="avs">${AVATARS.map((a,i)=>`<button data-av="${i}" class="${i===avIdx()?'on':''}">${avatar(i)}</button>`).join('')}</div></div>
-        <div><button class="btn pri" id="pSave">Save profile</button></div></div>`;
+        <div><label class="f">Avatar</label><div class="avs"><button id="pPhoto" class="${S.photo?'on':''}" title="Custom photo">${S.photo?avatar(S):`<span class="avt addu">${I.plus}</span>`}</button>${AVATARS.map((a,i)=>`<button data-av="${i}" class="${!S.photo&&i===avIdx()?'on':''}">${avIcon(i)}</button>`).join('')}</div>
+          <div class="row" style="display:flex;gap:8px;margin-top:10px"><button class="btn" id="pUpload">${I.plus}Use your own photo</button><button class="btn ${S.photo?'':'hidden'}" id="pClear">${I.close}Remove photo</button></div>
+          <input type="file" id="pFile" accept="image/*" class="hidden"></div>
+        <div><button class="btn pri" id="pSave">Save profile</button></div></div>
+        <div class="h1" style="margin-top:34px">Users</div><div class="muted">Everyone on this console has their own apps, theme, trophies and settings.</div>
+        <div class="sec ulst" style="max-width:520px">${ACC.list.map(u=>`<div class="card urow"><span class="ua">${avatar(u)}</span><div style="flex:1;min-width:0"><b>${esc(u.name)}</b>${u.id===UID?'<small>Signed in</small>':''}</div>${u.id===UID?'':`<button class="btn" data-rmu="${u.id}">${I.trash}Delete</button>`}</div>`).join('')}
+          <button class="btn" id="pSwitch">${I.user}Switch or add user</button></div>`;
       if(tab==='apps')h=`<div class="h1">Web Apps</div><div class="muted">Reorder, change how each app opens, or remove it.</div>
         <div class="sec grid">${S.apps.length?S.apps.map((a,i)=>`<div class="wrow"><div class="wi" style="--g1:${a.c1};--g2:${a.c2}">${logo(a)}</div><div class="wn"><b>${esc(a.name)}</b><div>${esc(a.url)}</div></div>
           <button class="ib" data-mv="${i}:-1" title="Move left">${I.left}</button><button class="ib" data-mv="${i}:1" title="Move right">${I.right}</button>
@@ -1273,8 +1361,20 @@ APPS.settings={title:()=>'Settings',icon:()=>({svg:'gear',c1:'#5a6b8f',c2:'#232c
       $$('[data-tog]',sp).forEach(b=>b.onclick=()=>{const k=b.dataset.tog;S[k]=!S[k];save();b.classList.toggle('on',S[k]);clock()});
       $$('[data-th]',sp).forEach(b=>b.onclick=()=>{setTheme(b.dataset.th);$$('[data-th]',sp).forEach(x=>x.classList.toggle('on',x===b))});
       if($('#sVol')){$('#sVol').oninput=e=>{S.vol=+e.target.value;save();$('label.f',sp).textContent=`Volume — ${Math.round(S.vol*100)}%`};$('#sVol').onchange=()=>sfx.ok();$('#sTest').onclick=()=>sfx.trophy()}
-      if($('#pSave')){let av=avIdx();$$('[data-av]',sp).forEach(b=>b.onclick=()=>{av=+b.dataset.av;$$('[data-av]',sp).forEach(x=>x.classList.toggle('on',x===b))});
-        $('#pSave').onclick=()=>{const n=$('#pName').value.trim()||'Player 1';if(n!==S.name||av!==S.avatar)trophy('identity');S.name=n;S.avatar=av;save();renderStatus();toast('Profile saved',n,`<span class="tlogo">${avatar(av)}</span>`)};
+      if($('#pSave')){let av=avIdx(),ph=S.photo;
+        const pick=b=>$$('.avs button',sp).forEach(x=>x.classList.toggle('on',x===b));
+        $$('[data-av]',sp).forEach(b=>b.onclick=()=>{av=+b.dataset.av;ph='';pick(b)});
+        let lastPhoto=S.photo;
+        $('#pPhoto').onclick=()=>{if(lastPhoto){ph=lastPhoto;pick($('#pPhoto'))}else $('#pFile').click()};
+        $('#pUpload').onclick=()=>$('#pFile').click();
+        $('#pFile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+          try{ph=lastPhoto=await photoData(f)}catch{toast("Couldn't read that image",'Try a JPG, PNG or WebP file.',I.bell);return}
+          $('#pPhoto').innerHTML=avatar({photo:ph});pick($('#pPhoto'));$('#pClear').classList.remove('hidden')};
+        $('#pClear').onclick=()=>{ph=lastPhoto='';$('#pPhoto').innerHTML=`<span class="avt addu">${I.plus}</span>`;$('#pClear').classList.add('hidden');pick($(`[data-av="${av}"]`,sp))};
+        $('#pSave').onclick=()=>{const n=$('#pName').value.trim()||'Player 1';if(n!==S.name||av!==S.avatar||ph!==S.photo)trophy('identity');S.name=n;S.avatar=av;S.photo=ph;save();renderStatus();render();toast('Profile saved',n,`<span class="tlogo">${avatar()}</span>`)};
+        $('#pSwitch').onclick=()=>signOut();
+        $$('[data-rmu]',sp).forEach(b=>b.onclick=()=>{const u=ACC.list.find(x=>x.id===b.dataset.rmu);confirmBox('Delete '+u.name+'?','Their apps, trophies and settings will be removed from this console.','Delete',()=>{
+          ACC.list=ACC.list.filter(x=>x!==u);saveAcc();try{localStorage.removeItem(keyOf(u.id))}catch{}render()})});
         $('#pName').onkeydown=e=>{if(e.key==='Enter')$('#pSave').click()}}
       $$('[data-mv]',sp).forEach(b=>b.onclick=()=>{const[i,d]=b.dataset.mv.split(':').map(Number),j=i+d;if(j<0||j>=S.apps.length)return;[S.apps[i],S.apps[j]]=[S.apps[j],S.apps[i]];save();render();$(`[data-mv="${j}:${d}"]`,sp)?.focus()});
       $$('[data-md]',sp).forEach(b=>b.onclick=()=>{const a=S.apps[+b.dataset.md];if(NATIVE)a.external=!a.external;else a.mode=a.mode==='tab'?'frame':'tab';save();render();$(`[data-md="${b.dataset.md}"]`,sp)?.focus()});
@@ -1322,7 +1422,7 @@ APPS.notifs={title:()=>'Notifications',icon:()=>({svg:'bell',c1:'#3a7bff',c2:'#1
 APPS.profile={title:()=>'Profile',icon:()=>({svg:'user',c1:'#3a7bff',c2:'#1a3a9a'}),noCount:true,
   build(body){
     const L=level();
-    body.innerHTML=`<div class="pane" style="text-align:center"><div class="users" style="margin-top:4vh"><div class="big">${avatar(avIdx(),'xl')}</div><div class="nm">${esc(S.name)}</div><div class="wel">Level ${L.lv} · ${points()} trophy points</div></div>
+    body.innerHTML=`<div class="pane" style="text-align:center"><div class="users" style="margin-top:4vh"><div class="big">${avatar(S,'xl')}</div><div class="nm">${esc(S.name)}</div><div class="wel">Level ${L.lv} · ${points()} trophy points</div></div>
       <div class="sec" style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap"><button class="btn pri" id="prEdit">${I.user}Edit profile</button><button class="btn" id="prTro">${I.trophy}Trophies</button><button class="btn" id="prAct">${I.spark}Activity</button></div>
       <div class="sec grid stats" style="max-width:800px;margin-left:auto;margin-right:auto">${[['Apps launched',S.stats.opened],['Pages visited',S.stats.pages],['Drift best',S.stats.best],['Trophies',Object.keys(S.trophies).length]].map(([k,v])=>`<div class="card stat"><b>${v}</b><span>${k}</span></div>`).join('')}</div></div>`;
     $('#prEdit').onclick=()=>openApp('settings',{tab:'profile'});$('#prTro').onclick=()=>openApp('trophies');$('#prAct').onclick=()=>openApp('feed');
