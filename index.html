@@ -1579,7 +1579,7 @@ APPS.calc={title:()=>'Calculator',icon:()=>({svg:'calc',c1:B.calc.c1,c2:B.calc.c
     const MAP={'/':'÷','*':'×','x':'×','-':'−','+':'+','=':'=','Enter':'=','Backspace':'⌫','Delete':'C','c':'C','C':'C','%':'%','.':'.',',':'.'};
     // Enter means "=" unless the arrow keys / d-pad were used to pick a button, in which case it presses that button.
     let picked=false;
-    const kd=e=>{if(e.key.startsWith('Arrow')){picked=true;return}
+    const kd=e=>{if(quickOn||modalOn||cur?.id!=='calc')return;if(e.key.startsWith('Arrow')){picked=true;return}
       const k=/^\d$/.test(e.key)?e.key:MAP[e.key];if(!k)return;if(e.key==='Enter'&&picked&&document.activeElement?.classList.contains('ck'))return;picked=false;
       e.preventDefault();e.stopImmediatePropagation();press(k);const b=$(`.ck[data-k="${k}"]`,body);if(b){b.classList.add('hit');setTimeout(()=>b.classList.remove('hit'),120)}};
     addEventListener('keydown',kd,true);
@@ -1734,8 +1734,11 @@ APPS.mines={title:()=>'Mines',icon:()=>({svg:'mine',c1:B.mines.c1,c2:B.mines.c2}
       if(over||cells[i].flag||cells[i].open)return;
       if(!started){started=true;seed(i);t0=Date.now();timer=setInterval(()=>{const e=$('#mT');if(e)e.textContent=Math.floor((Date.now()-t0)/1000)},250)}
       if(cells[i].mine){over=true;clearInterval(timer);cells.forEach((c,j)=>{if(c.mine){c.open=true;paint(j)}});tone(160,.5,'sawtooth',.07);
-        setTimeout(()=>modal(`<h3>Boom!</h3><p>You hit a mine. Better luck next time.</p><div class="mbtns"><button class="btn pri" id="mAgain">${I.restart}Try again</button><button class="btn" id="mQuit">Back to home</button></div>`),500);
-        setTimeout(()=>{$('#mAgain').onclick=()=>{closeModal();deal()};$('#mQuit').onclick=()=>{closeModal();closeApp()}},520);return}
+        const me=cur;
+        // Let the revealed mines show for a moment; skip the pop-up if the player has already left the game.
+        setTimeout(()=>{if(cur!==me)return;
+          modal(`<h3>Boom!</h3><p>You hit a mine. Better luck next time.</p><div class="mbtns"><button class="btn pri" id="mAgain">${I.restart}Try again</button><button class="btn" id="mQuit">Back to home</button></div>`);
+          $('#mAgain').onclick=()=>{closeModal();deal()};$('#mQuit').onclick=()=>{closeModal();closeApp()}},500);return}
       const st=[i];while(st.length){const j=st.pop(),c=cells[j];if(c.open||c.flag)continue;c.open=true;opened++;paint(j);if(!c.n)nb(j).forEach(k=>{if(!cells[k].open)st.push(k)})}
       tone(900,.04,'sine',.04);
       if(opened===N*N-M){over=true;clearInterval(timer);const s=Math.max(1,Math.round((Date.now()-t0)/1000)),b=best('mines'),nbst=!b||s<b;if(nbst){S.stats.bests.mines=s;save()}
