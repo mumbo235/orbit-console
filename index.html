@@ -395,8 +395,14 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .gover p{opacity:.75;margin-top:8px}
 
 .lib{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
-.lt{display:flex;flex-direction:column;gap:8px;text-align:left;border-radius:6px;padding:8px;transition:background .15s}
-.lt:hover,.lt:focus-visible{background:rgba(255,255,255,.1)}
+.lt{display:flex;flex-direction:column;gap:6px;text-align:left;border-radius:6px;padding:8px;transition:background .15s}
+.lt:hover,.lt:focus-within{background:rgba(255,255,255,.08)}
+.ltb{display:flex;flex-direction:column;align-items:stretch;gap:8px;text-align:left;color:inherit;padding:0;width:100%;border-radius:4px}
+.ltb .lti{width:100%}
+.lpin{height:28px;border-radius:14px;font-size:12px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff}
+.lpin svg{width:14px;height:14px}
+.lpin.on{background:rgba(255,255,255,.9);color:#0a1840}
+.lgh{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin:28px 0 12px;font-weight:500}
 .lt .lti{aspect-ratio:1;border-radius:4px;display:grid;place-items:center;background:linear-gradient(150deg,var(--g1),var(--g2));font-size:44px}
 .lt .lti svg{width:40%;height:40%}
 .lt .lti img{width:44%;height:44%}
@@ -411,6 +417,66 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   #ttl{font-size:20px}
   #stName,#fbar .fi:nth-child(n+5){display:none}
 }
+/* notes */
+.notes{display:grid;grid-template-columns:minmax(200px,280px) 1fr;gap:18px;height:100%;padding:24px clamp(16px,3vw,40px);box-sizing:border-box}
+.nlist{display:flex;flex-direction:column;gap:6px;overflow:auto;min-height:0}
+.nlist .btn{margin-bottom:8px;flex:none}
+.ni{text-align:left;padding:10px 12px;border-radius:6px;color:#fff;flex:none}
+.ni b{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ni small{font-size:12px;opacity:.55}
+.ni.on{background:rgba(255,255,255,.12)}.ni:hover,.ni:focus-visible{background:rgba(255,255,255,.95);color:#0a1840}
+.ned{display:flex;flex-direction:column;gap:10px;min-height:0}
+.ned textarea{flex:1;resize:none;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;font:16px/1.6 Inter,system-ui;padding:18px}
+.ned textarea:focus{outline:none;border-color:var(--accent)}
+.nbar{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+/* calculator */
+.calc{width:min(380px,92vw);margin:4vh auto 0;display:flex;flex-direction:column;gap:14px}
+.cscr{padding:18px 20px;border-radius:10px;background:rgba(0,0,0,.3);text-align:right}
+.cexp{font-size:14px;opacity:.55;min-height:20px}.cdisp{font-size:52px;font-weight:200;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ckeys{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ck{height:64px;border-radius:12px;background:rgba(255,255,255,.08);color:#fff;font-size:22px;font-weight:300;transition:background .1s}
+.ck.fn{background:rgba(255,255,255,.16)}.ck.op{background:var(--accent);font-weight:400}
+.ck:hover,.ck.hit{background:rgba(255,255,255,.3)}.ck:focus-visible{background:#fff;color:#0a1840}
+/* clock */
+.clk{text-align:center}.ctabs,.cbtns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+.cbig{font-size:clamp(56px,9vw,120px);font-weight:200;font-variant-numeric:tabular-nums;margin-top:4vh;letter-spacing:-.02em}
+.cbig small{font-size:.45em;opacity:.6}.cdate{opacity:.7;font-size:18px;font-weight:300;margin-bottom:30px}
+.zones{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));max-width:820px;margin:0 auto}.zone b{display:block;font-size:26px;font-weight:300;margin-top:4px}
+.laps{max-width:360px;margin:0 auto;display:flex;flex-direction:column;gap:4px}.laps div{display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.laps b{font-weight:400}.laps small{opacity:.6}
+/* sketch */
+.sk{display:flex;flex-direction:column;gap:14px;height:100%;padding:18px clamp(14px,3vw,36px);box-sizing:border-box}
+.skbar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}.skc{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sw{width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,.25)}.sw.on{box-shadow:0 0 0 3px #fff}
+.sz{width:40px;padding:0;display:grid;place-items:center}.sz i{display:block;border-radius:50%;background:currentColor}
+.skwrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.skwrap canvas{max-width:100%;max-height:100%;border-radius:10px;cursor:crosshair;touch-action:none;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+/* weather */
+.wsearch{display:flex;gap:8px;max-width:560px}.wsearch .inp{flex:1}
+.wnow{display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding:26px}
+.wico svg{width:96px;height:96px;stroke-width:1.3}.wt{font-size:64px;font-weight:200;line-height:1}.wl{font-size:20px;font-weight:300;margin:4px 0}
+.wdet{display:flex;gap:28px;margin-left:auto}.wdet b{display:block;font-size:22px;font-weight:300}
+.wdays{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));margin-top:14px}
+.wday{text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}.wday b{font-size:22px;font-weight:300}.wday small{font-size:11px;opacity:.55}
+.wsm svg{width:40px;height:40px;stroke-width:1.4;margin:6px 0}
+/* calendar */
+.cal{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);gap:24px;align-items:start}
+.calh{display:flex;align-items:center;gap:10px;margin-bottom:14px}.calh .h1{flex:1;text-align:center;margin:0}
+.calg{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.calg span{text-align:center;font-size:12px;opacity:.55;padding:4px 0;letter-spacing:.08em}
+.cd{aspect-ratio:1.25;border-radius:8px;background:rgba(255,255,255,.05);color:#fff;font-size:16px;position:relative}
+.cd i{position:absolute;left:50%;bottom:16%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--accent)}
+.cd.today{box-shadow:inset 0 0 0 2px var(--accent)}.cd.on{background:rgba(255,255,255,.9);color:#0a1840}
+.cd:hover,.cd:focus-visible{background:rgba(255,255,255,.95);color:#0a1840}
+.calp .h2{font-size:18px;font-weight:400;margin-bottom:12px}.evs{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.ev{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;background:rgba(255,255,255,.06)}.ev span{flex:1;min-width:0;overflow-wrap:anywhere}
+.ev .btn{height:28px;padding:0 8px}.ev .btn svg{width:14px;height:14px}
+.evadd{display:flex;gap:8px}.evadd .inp{flex:1;min-width:0}
+/* mines */
+.mines{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;width:min(470px,92vw,calc(100vh - 260px));margin:0 auto}
+.mc{aspect-ratio:1;border-radius:5px;background:linear-gradient(150deg,rgba(255,255,255,.2),rgba(255,255,255,.08));color:#fff;font-size:clamp(14px,2.2vw,20px);font-weight:600;display:grid;place-items:center;padding:0}
+.mc svg{width:60%;height:60%}.mc:hover{background:rgba(255,255,255,.28)}.mc:focus-visible{box-shadow:0 0 0 3px #fff;outline:none}
+.mc.open{background:rgba(0,0,0,.25)}.mc.flag{color:#ffb02e}.mc.boom{background:#c2304a}
+.mc.n1{color:#6cb8ff}.mc.n2{color:#5fdc7a}.mc.n3{color:#ff6b6b}.mc.n4{color:#b18cff}.mc.n5{color:#ffb02e}.mc.n6{color:#4fd1c5}.mc.n7,.mc.n8{color:#fff}
+@media(max-width:760px){.notes,.cal{grid-template-columns:1fr}.wdet{margin-left:0}}
 </style>
 </head>
 <body>
@@ -496,6 +562,18 @@ const I={
   cards:sv('<rect x="3" y="6" width="11" height="15" rx="2"/><path d="M10 3.7 17.6 2l3.3 14.6-6.9 1.6"/>'),
   stack:sv('<rect x="4" y="16.5" width="16" height="4.5" rx="1"/><rect x="5.5" y="11" width="12" height="4.5" rx="1"/><rect x="8" y="5.5" width="9" height="4.5" rx="1"/><path d="M3 3h6" opacity=".6"/>'),
   check:sv('<path d="M20 6 9 17l-5-5"/>'),
+  note:sv('<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>'),
+  calc:sv('<rect x="5" y="2.5" width="14" height="19" rx="2"/><rect x="8" y="5.5" width="8" height="4" rx="1"/><path d="M8.5 13h.01M12 13h.01M15.5 13h.01M8.5 17h.01M12 17h.01M15.5 17h.01" stroke-width="2.6"/>'),
+  clock:sv('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+  brush:sv('<path d="M18.4 2.6a2 2 0 0 1 2.9 2.9L11 15.8 8.2 13z"/><path d="M7 14.5c-2 0-3.5 1.6-3.5 3.6 0 1.2-.6 2.1-1.5 2.4 1 .6 2.3.9 3.5.9 2.5 0 4.5-2 4.5-4.4z"/>'),
+  sun:sv('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+  cloud:sv('<path d="M17.5 19H8a5 5 0 1 1 .9-9.9A6 6 0 0 1 20.5 11 4 4 0 0 1 17.5 19z"/>'),
+  rain:sv('<path d="M16 13H8a4 4 0 1 1 .8-7.9A5 5 0 0 1 18.5 7 3 3 0 0 1 16 13z"/><path d="M8 16l-1 3M12 16l-1 3M16 16l-1 3"/>'),
+  snow:sv('<path d="M16 13H8a4 4 0 1 1 .8-7.9A5 5 0 0 1 18.5 7 3 3 0 0 1 16 13z"/><path d="M8 17h.01M12 19h.01M16 17h.01M10 21.5h.01M14 21.5h.01" stroke-width="2.6"/>'),
+  fog:sv('<path d="M3 9h18M5 13h14M3 17h18"/>'),
+  cal:sv('<rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/>'),
+  mine:sv('<circle cx="12" cy="13" r="6"/><path d="M12 3v2.5M12 23v-2M3.5 13H2M22 13h-1.5M6 7 5 6M18 7l1-1"/><circle cx="10" cy="11" r="1.2" fill="currentColor"/>'),
+  flag:sv('<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>'),
   bolt:sv('<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'),
   flame:sv('<path d="M12 22a7 7 0 0 0 7-7c0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-5 5-5 8a7 7 0 0 0 7 7z"/>'),
   crown:sv('<path d="M3 7l4 4 5-7 5 7 4-4-2 12H5z"/><path d="M5 19h14"/>'),
@@ -652,6 +730,7 @@ const TROPHIES=[
   {id:'breaker',name:'Demolition',desc:'Clear a level in Breaker',tier:'silver'},
   {id:'pairs',name:'Total Recall',desc:'Finish Pairs in 14 moves or fewer',tier:'silver'},
   {id:'skyline',name:'Skyscraper',desc:'Stack 20 floors in Skyline',tier:'gold'},
+  {id:'mines',name:'Sweeper',desc:'Clear a Mines board without hitting a mine',tier:'silver'},
   {id:'pad',name:'Plugged In',desc:'Connect a controller',tier:'bronze'},
   {id:'plat',name:'Completionist',desc:'Earn every other trophy',tier:'platinum'},
 ];
@@ -659,7 +738,9 @@ const TROPHIES=[
 const LS='orbit-console.v1';
 function defaults(){return{name:'Player 1',avatar:0,theme:'classic',sound:true,vol:.6,clock24:false,bootAnim:true,waves:true,particles:true,
   apps:DEFAULT_APPS.map(id=>({...CATALOG.find(c=>c.id===id)})),bookmarks:DEFAULT_BM.slice(),history:[],trophies:{},
-  stats:{opened:0,pages:0,best:0,boots:0},notifs:[],activity:[],lastTile:0}}
+  stats:{opened:0,pages:0,best:0,boots:0},notifs:[],activity:[],home:HOME_DEFAULT.slice(),notes:[],events:{},city:'London',units:'c'}}
+// Console apps and games pinned to the home screen by default; everything else lives in the Library.
+const HOME_DEFAULT=['drift','serpent','notes','music'];
 // Each account keeps its own full state (apps, theme, trophies…). The first account keeps the original storage key
 // so existing data carries over; the account list (names, avatars, photos) lives under its own key.
 const LSA='orbit-console.accounts';
@@ -668,6 +749,7 @@ function loadState(id){
   let s;try{s=Object.assign(defaults(),JSON.parse(localStorage.getItem(keyOf(id))||'{}'))}catch{s=defaults()}
   if(typeof s.avatar!=='number')s.avatar=0;
   if(typeof s.photo!=='string')s.photo='';
+  if(!Array.isArray(s.home))s.home=HOME_DEFAULT.slice();
   s.stats.bests=s.stats.bests||{};
   for(const x of [...s.activity,...s.notifs])if(!I[x.icon])x.icon=x.icon==='🏆'?'trophy':'spark';
   for(const a of s.apps){const c=CATALOG.find(x=>x.id===a.id);if(c)Object.assign(a,{logo:c.logo,fav:c.fav,c1:c.c1,c2:c.c2,url:c.url,name:c.name})}
@@ -827,6 +909,23 @@ const B={
     desc:'Flip cards two at a time and match every pair in as few moves as you can.',acts:()=>gameActs('pairs','Fewest moves')},
   skyline:{id:'skyline',name:'Skyline',sub:'Arcade',svg:'stack',c1:'#2fc4ff',c2:'#0b3a7a',open:()=>openApp('skyline'),badge:'GAME',
     desc:'Drop each sliding floor onto the last. Miss the edge and it gets trimmed — how high can you build?',acts:()=>gameActs('skyline','Highest tower')},
+  mines:{id:'mines',name:'Mines',sub:'Puzzle',svg:'mine',c1:'#9aa7c0',c2:'#2f3a55',open:()=>openApp('mines'),badge:'GAME',
+    desc:'Clear the board without setting off a mine. Numbers show how many mines touch each square.',acts:()=>gameActs('mines','Best time')},
+  notes:{id:'notes',name:'Notes',sub:'Jot things down',svg:'note',c1:'#ffd54a',c2:'#b7791f',open:()=>openApp('notes'),
+    desc:'Quick notes that save as you type.',
+    acts:()=>S.notes.filter(n=>n.text.trim()).slice(0,2).map(n=>({label:noteTitle(n),sub:ago(n.t),icon:I.note,fn:()=>openApp('notes',{id:n.id})})).concat([{label:'New note',sub:'Start fresh',icon:I.plus,fn:()=>openApp('notes',{new:true})}])},
+  calc:{id:'calc',name:'Calculator',sub:'Quick maths',svg:'calc',c1:'#ff8a3d',c2:'#8a2c0b',open:()=>openApp('calc'),
+    desc:'A simple calculator. Type numbers on your keyboard or use the buttons.',acts:()=>[{label:'Open',sub:'Calculator',icon:I.play,fn:()=>openApp('calc')}]},
+  clock:{id:'clock',name:'Clock',sub:'Timer & stopwatch',svg:'clock',c1:'#4fd1ff',c2:'#0b4a7a',open:()=>openApp('clock'),
+    desc:'World clocks, a stopwatch with laps, and a timer that rings even after you close the app.',
+    acts:()=>[['Stopwatch','sw',I.flag],['Timer','timer',I.clock]].map(([l,t,ic])=>({label:l,sub:t==='timer'&&CLK.tm.run?'Running':'Open',icon:ic,fn:()=>openApp('clock',{tab:t})}))},
+  sketch:{id:'sketch',name:'Sketch',sub:'Draw',svg:'brush',c1:'#ff6bd5',c2:'#7a1f6a',open:()=>openApp('sketch'),
+    desc:'Doodle with colours and brushes, then save your drawing as an image.',acts:()=>[{label:'New sketch',sub:'Blank canvas',icon:I.brush,fn:()=>openApp('sketch')}]},
+  weather:{id:'weather',name:'Weather',sub:'Forecast',svg:'sun',c1:'#ffc94d',c2:'#d9572b',open:()=>openApp('weather'),
+    desc:'Current conditions and a 7-day forecast for any city.',acts:()=>[{label:'Forecast',sub:S.city,icon:I.sun,fn:()=>openApp('weather')}]},
+  calendar:{id:'calendar',name:'Calendar',sub:'Plan your days',svg:'cal',c1:'#ff5e5e',c2:'#8a1a2a',open:()=>openApp('calendar'),
+    desc:'A month view where you can add events to any day.',
+    acts:()=>Object.keys(S.events).filter(k=>k>=dkey(new Date())).sort().slice(0,2).map(k=>({label:S.events[k][0],sub:new Date(k+'T12:00').toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'}),icon:I.cal,fn:()=>openApp('calendar')})).concat([{label:'Open calendar',sub:new Date().toLocaleDateString([],{month:'long'}),icon:I.cal,fn:()=>openApp('calendar')}])},
   library:{id:'library',name:'Library',sub:'All apps',svg:'grid',c1:'#5a6b8f',c2:'#232c44',open:()=>openApp('library'),
     desc:'Everything installed on your console.',
     acts:()=>[{label:'All apps',sub:(tiles().length+1)+' items',icon:I.grid,fn:()=>openApp('library')},{label:'Settings',sub:'Manage web apps',icon:I.gear,fn:()=>openApp('settings',{tab:'apps'})}]},
@@ -836,7 +935,12 @@ function webTile(a){return{id:'web:'+a.id,name:a.name,sub:hostOf(a.url),c1:a.c1,
   acts:()=>[{label:'Open',sub:external(a)?(NATIVE?'In your browser':'In a new tab'):'On the console',icon:I.play,fn:()=>openWeb(a)},
     {label:external(a)?'Open on console':(NATIVE?'Open in browser':'Open in new tab'),sub:'One-time',icon:external(a)?I.sys:I.ext,fn:()=>openWeb(a,external(a)?'frame':'tab')},
     {label:'Remove from home',sub:'Re-add any time',icon:I.trash,fn:()=>confirmBox('Remove '+a.name+'?','It will be removed from your home screen.','Remove',()=>removeApp(a.id))}]}}
-const tiles=()=>[B.feed,B.store,B.browser,...S.apps.map(webTile),B.drift,B.serpent,B.breaker,B.pairs,B.skyline,B.music,B.library];
+const NATIVE_IDS=()=>Object.keys(B).filter(k=>!['feed','store','browser','library'].includes(k));
+// Pinned console apps get an extra "Remove from home" card; they stay in the Library either way.
+const homeTile=t=>({...t,acts:()=>[...(t.acts?t.acts():[]),{label:'Remove from home',sub:'Still in Library',icon:I.trash,fn:()=>unpinTile(t.id)}]});
+const tiles=()=>[B.feed,B.store,B.browser,...S.apps.map(webTile),...S.home.filter(k=>B[k]).map(k=>homeTile(B[k])),B.library];
+function pinTile(k){if(S.home.includes(k))return;S.home.push(k);save();toast('Added to home',B[k].name,I[B[k].svg])}
+function unpinTile(k){S.home=S.home.filter(x=>x!==k);save();if(!cur)renderHome();toast('Removed from home',B[k].name+' is still in your Library',I[B[k].svg])}
 const best=id=>S.stats.bests[id]||0;
 const gameActs=(id,label)=>[{label:'Play',sub:label+': '+(best(id)||'—'),icon:I.play,fn:()=>openApp(id)},{label:'Trophies',sub:'View progress',icon:I.trophy,fn:()=>openApp('trophies')}];
 // catalog icons ship in ./icons so they load offline; only custom apps fetch a favicon remotely
@@ -1429,16 +1533,239 @@ APPS.profile={title:()=>'Profile',icon:()=>({svg:'user',c1:'#3a7bff',c2:'#1a3a9a
   }};
 
 /* --- Library --- */
+/* --- Notes --- */
+const noteTitle=n=>(n.text.trim().split('\n')[0]||'New note').slice(0,40);
+APPS.notes={title:()=>'Notes',icon:()=>({svg:'note',c1:B.notes.c1,c2:B.notes.c2}),
+  build(body,o){
+    const make=()=>{const n={id:'n'+Date.now().toString(36),t:Date.now(),text:''};S.notes.unshift(n);save();return n};
+    if(!S.notes.length||o.new)make();
+    let id=(S.notes.find(n=>n.id===o.id)||S.notes[0]).id,tm;
+    const note=()=>S.notes.find(n=>n.id===id);
+    function draw(){
+      body.innerHTML=`<div class="notes"><div class="nlist"><button class="btn pri" id="nNew">${I.plus}New note</button>${S.notes.map(n=>`<button class="ni ${n.id===id?'on':''}" data-n="${n.id}"><b>${esc(noteTitle(n))}</b><small>${ago(n.t)}</small></button>`).join('')}</div>
+        <div class="ned"><textarea id="nTxt" placeholder="Start typing…">${esc(note().text)}</textarea><div class="nbar"><span class="muted" id="nInfo">${note().text.length} characters · saved</span><button class="btn" id="nDel">${I.trash}Delete</button></div></div></div>`;
+      $('#nNew').onclick=()=>{id=make().id;draw();$('#nTxt').focus()};
+      $$('[data-n]',body).forEach(b=>b.onclick=()=>{id=b.dataset.n;draw();$('#nTxt').focus()});
+      $('#nTxt').oninput=e=>{const n=note();n.text=e.target.value;n.t=Date.now();$('.ni.on b',body).textContent=noteTitle(n);
+        $('#nInfo').textContent=n.text.length+' characters';clearTimeout(tm);tm=setTimeout(()=>{save();$('#nInfo').textContent=n.text.length+' characters · saved'},400)};
+      $('#nDel').onclick=()=>confirmBox('Delete this note?',noteTitle(note()),'Delete',()=>{S.notes=S.notes.filter(n=>n.id!==id);if(!S.notes.length)make();id=S.notes[0].id;save();draw();$('.ni.on',body)?.focus()});
+    }
+    draw();
+    return{onClose:()=>{clearTimeout(tm);S.notes=S.notes.filter(n=>n.text.trim()||n.id===S.notes[0]?.id);save()},focus:()=>$('.ni.on',body)};
+  }};
+
+/* --- Calculator --- */
+APPS.calc={title:()=>'Calculator',icon:()=>({svg:'calc',c1:B.calc.c1,c2:B.calc.c2}),
+  build(body){
+    let disp='0',acc=null,op=null,fresh=true,expr='';
+    const K=['C','±','%','÷','7','8','9','×','4','5','6','−','1','2','3','+','0','.','⌫','='];
+    body.innerHTML=`<div class="calc"><div class="cscr"><div class="cexp" id="cE">&nbsp;</div><div class="cdisp" id="cD">0</div></div><div class="ckeys">${K.map(k=>`<button class="ck ${'÷×−+='.includes(k)?'op':''} ${'C±%⌫'.includes(k)?'fn':''}" data-k="${k}">${k}</button>`).join('')}</div></div>`;
+    const run=(a,b,o)=>o==='+'?a+b:o==='−'?a-b:o==='×'?a*b:o==='÷'?(b===0?NaN:a/b):b;
+    const fmt=n=>isFinite(n)?String(+n.toPrecision(12)):'Error';
+    function press(k){
+      if(disp==='Error'&&k!=='C'){disp='0';acc=null;op=null;fresh=true}
+      if(/\d/.test(k)){disp=fresh||disp==='0'?k:disp.length<15?disp+k:disp;fresh=false}
+      else if(k==='.'){if(fresh){disp='0.';fresh=false}else if(!disp.includes('.'))disp+='.'}
+      else if(k==='C'){disp='0';acc=null;op=null;fresh=true;expr=''}
+      else if(k==='⌫'){if(!fresh)disp=disp.length>1&&disp!=='-0'?disp.slice(0,-1):'0';if(disp==='-')disp='0'}
+      else if(k==='±'){if(disp!=='0')disp=disp.startsWith('-')?disp.slice(1):'-'+disp}
+      else if(k==='%'){disp=fmt(parseFloat(disp)/100);fresh=true}
+      else if(k==='='){if(op){expr=`${fmt(acc)} ${op} ${disp} =`;disp=fmt(run(acc,parseFloat(disp),op));acc=null;op=null;fresh=true}}
+      else{const v=parseFloat(disp);if(op&&!fresh){acc=run(acc,v,op);disp=fmt(acc)}else if(!op)acc=v;op=k;fresh=true;expr=`${fmt(acc)} ${k}`}
+      $('#cD').textContent=disp;$('#cE').innerHTML=expr?esc(expr):'&nbsp;';
+    }
+    $$('.ck',body).forEach(b=>b.onclick=()=>{press(b.dataset.k);tone(1100,.03,'sine',.03)});
+    // Typing works too; captured before the console's own key handling so digits and Backspace stay in the calculator.
+    const MAP={'/':'÷','*':'×','x':'×','-':'−','+':'+','=':'=','Enter':'=','Backspace':'⌫','Delete':'C','c':'C','C':'C','%':'%','.':'.',',':'.'};
+    // Enter means "=" unless the arrow keys / d-pad were used to pick a button, in which case it presses that button.
+    let picked=false;
+    const kd=e=>{if(e.key.startsWith('Arrow')){picked=true;return}
+      const k=/^\d$/.test(e.key)?e.key:MAP[e.key];if(!k)return;if(e.key==='Enter'&&picked&&document.activeElement?.classList.contains('ck'))return;picked=false;
+      e.preventDefault();e.stopImmediatePropagation();press(k);const b=$(`.ck[data-k="${k}"]`,body);if(b){b.classList.add('hit');setTimeout(()=>b.classList.remove('hit'),120)}};
+    addEventListener('keydown',kd,true);
+    return{onClose:()=>removeEventListener('keydown',kd,true),focus:()=>$('.ck[data-k="="]',body)};
+  }};
+
+/* --- Clock: world clock, stopwatch and a timer that keeps running after the app closes --- */
+const CLK={sw:{run:false,t0:0,acc:0,laps:[]},tm:{dur:300000,left:300000,run:false,end:0,to:0}};
+const fmtTimer=ms=>{const s=Math.ceil(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0')};
+function timerDone(){const t=CLK.tm;t.run=false;t.left=t.dur;[0,.35,.7,1.4,1.75,2.1].forEach(w=>tone(1320,.25,'sine',.09,w));
+  toast('Timer finished',fmtTimer(t.dur)+' timer',I.clock,8000);log('Finished a '+fmtTimer(t.dur)+' timer','clock')}
+APPS.clock={title:()=>'Clock',icon:()=>({svg:'clock',c1:B.clock.c1,c2:B.clock.c2}),
+  build(body,o){
+    let tab=o.tab||'clock';
+    const ZONES=[['New York','America/New_York'],['London','Europe/London'],['Tokyo','Asia/Tokyo'],['Sydney','Australia/Sydney']];
+    const sw=CLK.sw,tm=CLK.tm,swT=()=>sw.acc+(sw.run?Date.now()-sw.t0:0);
+    const fSW=ms=>{const s=Math.floor(ms/1000);return`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}<small>.${String(Math.floor(ms%1000/10)).padStart(2,'0')}</small>`};
+    const tfmt=(d,z)=>d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit',hour12:!S.clock24,timeZone:z});
+    function draw(){
+      body.innerHTML=`<div class="pane clk"><div class="ctabs">${[['clock','Clock'],['sw','Stopwatch'],['timer','Timer']].map(([k,n])=>`<button class="chip ${k===tab?'on':''}" data-t="${k}">${n}</button>`).join('')}</div><div id="cBody"></div></div>`;
+      $$('[data-t]',body).forEach(b=>b.onclick=()=>{tab=b.dataset.t;draw();$(`[data-t="${tab}"]`,body).focus()});
+      const cb=$('#cBody');
+      if(tab==='clock')cb.innerHTML=`<div class="cbig" id="cNow"></div><div class="cdate" id="cDate"></div><div class="grid zones">${ZONES.map(([n,z])=>`<div class="card zone"><span class="muted">${n}</span><b data-z="${z}"></b></div>`).join('')}</div>`;
+      if(tab==='sw'){cb.innerHTML=`<div class="cbig" id="swD"></div><div class="cbtns"><button class="btn pri" id="swGo"></button><button class="btn" id="swLap">${I.flag}Lap</button><button class="btn" id="swRe">${I.restart}Reset</button></div><div class="laps" id="swL"></div>`;
+        $('#swGo').onclick=()=>{if(sw.run){sw.acc+=Date.now()-sw.t0;sw.run=false}else{sw.t0=Date.now();sw.run=true}tick()};
+        $('#swLap').onclick=()=>{if(sw.run){sw.laps.unshift(swT());tick()}};
+        $('#swRe').onclick=()=>{Object.assign(sw,{run:false,acc:0,laps:[]});tick()}}
+      if(tab==='timer'){cb.innerHTML=`<div class="cbig" id="tmD"></div><div class="cbtns">${[1,3,5,10,15,30].map(m=>`<button class="chip" data-m="${m}">${m} min</button>`).join('')}</div><div class="cbtns"><button class="btn pri" id="tmGo"></button><button class="btn" id="tmRe">${I.restart}Reset</button></div>`;
+        $$('[data-m]',cb).forEach(b=>b.onclick=()=>{if(tm.run)return;tm.dur=tm.left=+b.dataset.m*60000;tick()});
+        $('#tmGo').onclick=()=>{if(tm.run){tm.left=tm.end-Date.now();tm.run=false;clearTimeout(tm.to)}else{tm.end=Date.now()+tm.left;tm.run=true;tm.to=setTimeout(timerDone,tm.left)}tick()};
+        $('#tmRe').onclick=()=>{clearTimeout(tm.to);tm.run=false;tm.left=tm.dur;tick()}}
+      tick();
+    }
+    function tick(){
+      const d=new Date();
+      if(tab==='clock'&&$('#cNow')){$('#cNow').textContent=d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit',second:'2-digit',hour12:!S.clock24});
+        $('#cDate').textContent=d.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+        $$('[data-z]',body).forEach(e=>e.textContent=tfmt(d,e.dataset.z))}
+      if(tab==='sw'&&$('#swD')){$('#swD').innerHTML=fSW(swT());$('#swGo').innerHTML=sw.run?I.pause+'Stop':I.play+'Start';
+        const L=$('#swL'),h=sw.laps.map((t,i)=>`<div><span class="muted">Lap ${sw.laps.length-i}</span><b>${fSW(t)}</b></div>`).join('');if(L.dataset.h!==h){L.innerHTML=h;L.dataset.h=h}}
+      if(tab==='timer'&&$('#tmD')){const left=tm.run?Math.max(0,tm.end-Date.now()):tm.left;$('#tmD').textContent=fmtTimer(left);$('#tmGo').innerHTML=tm.run?I.pause+'Pause':I.play+(tm.left<tm.dur?'Resume':'Start');
+        $$('[data-m]',body).forEach(b=>b.classList.toggle('on',+b.dataset.m*60000===tm.dur))}
+    }
+    draw();const iv=setInterval(tick,60);
+    return{onClose:()=>clearInterval(iv),focus:()=>$('.chip.on',body)};
+  }};
+
+/* --- Sketch --- */
+APPS.sketch={title:()=>'Sketch',icon:()=>({svg:'brush',c1:B.sketch.c1,c2:B.sketch.c2}),
+  build(body){
+    const COLS=['#ffffff','#1a1a1a','#ff5e5e','#ffb02e','#ffe14d','#3ddc84','#2fb3ff','#4f6bff','#a46bff','#ff5ea8'],BG='#0e1630';
+    let col=COLS[0],size=6,erase=false,strokes=[],live=null;
+    body.innerHTML=`<div class="sk"><div class="skbar"><div class="skc">${COLS.map(c=>`<button class="sw ${c===col?'on':''}" data-c="${c}" style="background:${c}" title="${c}"></button>`).join('')}</div>
+      <div class="skc">${[3,6,12,24].map(s=>`<button class="chip sz ${s===size?'on':''}" data-s="${s}"><i style="width:${Math.min(s,18)}px;height:${Math.min(s,18)}px"></i></button>`).join('')}<button class="chip" id="skE">Eraser</button></div>
+      <div class="skc"><button class="btn" id="skU">${I.back}Undo</button><button class="btn" id="skX">${I.trash}Clear</button><button class="btn pri" id="skS">${I.check}Save image</button></div></div>
+      <div class="skwrap"><canvas id="skC" width="1600" height="1000"></canvas></div></div>`;
+    const c=$('#skC'),x=c.getContext('2d');
+    const line=s=>{x.strokeStyle=s.e?BG:s.c;x.lineWidth=s.s*2;x.lineCap=x.lineJoin='round';x.beginPath();s.p.forEach(([a,b],i)=>i?x.lineTo(a,b):x.moveTo(a,b));if(s.p.length===1)x.lineTo(s.p[0][0]+.1,s.p[0][1]);x.stroke()};
+    const redraw=()=>{x.fillStyle=BG;x.fillRect(0,0,c.width,c.height);strokes.forEach(line)};
+    const pt=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]};
+    c.onpointerdown=e=>{c.setPointerCapture(e.pointerId);live={c:col,s:size,e:erase,p:[pt(e)]};strokes.push(live);line(live)};
+    c.onpointermove=e=>{if(!live)return;const p=pt(e),q=live.p[live.p.length-1];live.p.push(p);x.strokeStyle=live.e?BG:live.c;x.lineWidth=live.s*2;x.lineCap='round';x.beginPath();x.moveTo(...q);x.lineTo(...p);x.stroke()};
+    c.onpointerup=c.onpointercancel=()=>{live=null};
+    const pick=(sel,b)=>$$(sel,body).forEach(e=>e.classList.toggle('on',e===b));
+    $$('[data-c]',body).forEach(b=>b.onclick=()=>{col=b.dataset.c;erase=false;pick('[data-c]',b);$('#skE').classList.remove('on')});
+    $$('[data-s]',body).forEach(b=>b.onclick=()=>{size=+b.dataset.s;pick('[data-s]',b)});
+    $('#skE').onclick=()=>{erase=!erase;$('#skE').classList.toggle('on',erase)};
+    $('#skU').onclick=()=>{strokes.pop();redraw()};
+    $('#skX').onclick=()=>{if(strokes.length)confirmBox('Clear the canvas?','This cannot be undone.','Clear',()=>{strokes=[];redraw()})};
+    $('#skS').onclick=()=>c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`sketch-${new Date().toISOString().slice(0,10)}.png`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+      log('Saved a sketch','brush');toast('Sketch saved',a.download,I.brush)});
+    redraw();
+    return{focus:()=>$('.sw.on',body)};
+  }};
+
+/* --- Weather (Open-Meteo, no key needed) --- */
+const WMO=c=>c===0?['Clear','sun']:c<=3?['Partly cloudy','cloud']:c<=48?['Fog','fog']:c<=57?['Drizzle','rain']:c<=67?['Rain','rain']:c<=77?['Snow','snow']:c<=82?['Showers','rain']:c<=86?['Snow showers','snow']:['Thunderstorm','bolt'];
+APPS.weather={title:()=>'Weather',icon:()=>({svg:'sun',c1:B.weather.c1,c2:B.weather.c2}),noAutoInput:true,
+  build(body){
+    body.innerHTML=`<div class="pane"><div class="wsearch"><input class="inp" id="wQ" placeholder="Search for a city" value="${esc(S.city)}" spellcheck="false" autocomplete="off"><button class="btn pri" id="wGo">${I.search}Search</button><button class="chip ${S.units==='f'?'on':''}" id="wU">°F</button></div><div id="wOut" class="sec"></div></div>`;
+    const out=$('#wOut');let seq=0;
+    async function load(q){
+      const my=++seq;out.innerHTML=`<div class="muted">Loading weather for ${esc(q)}…</div>`;
+      try{
+        const g=await(await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&name='+encodeURIComponent(q))).json();
+        const p=g.results&&g.results[0];if(my!==seq)return;
+        if(!p){out.innerHTML=`<div class="card muted">No place called “${esc(q)}”. Try another spelling.</div>`;return}
+        const f=S.units==='f';
+        const w=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.latitude}&longitude=${p.longitude}&timezone=auto&forecast_days=7&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max${f?'&temperature_unit=fahrenheit&wind_speed_unit=mph':''}`)).json();
+        if(my!==seq)return;
+        const cu=w.current,[lab,ic]=WMO(cu.weather_code),T=v=>Math.round(v)+'°',D=w.daily;
+        S.city=p.name;save();
+        out.innerHTML=`<div class="wnow card"><div class="wico">${I[ic]}</div><div><div class="wt">${T(cu.temperature_2m)}</div><div class="wl">${lab}</div><div class="muted">${esc(p.name)}${p.admin1?', '+esc(p.admin1):''} · ${esc(p.country||'')}</div></div>
+          <div class="wdet"><div><span class="muted">Feels like</span><b>${T(cu.apparent_temperature)}</b></div><div><span class="muted">Humidity</span><b>${cu.relative_humidity_2m}%</b></div><div><span class="muted">Wind</span><b>${Math.round(cu.wind_speed_10m)} ${f?'mph':'km/h'}</b></div></div></div>
+          <div class="grid wdays">${D.time.map((t,i)=>{const[l,c2]=WMO(D.weather_code[i]);return`<div class="card wday"><span class="muted">${i?new Date(t+'T12:00').toLocaleDateString([],{weekday:'short'}):'Today'}</span><div class="wsm">${I[c2]}</div><b>${T(D.temperature_2m_max[i])}</b><span class="muted">${T(D.temperature_2m_min[i])} · ${D.precipitation_probability_max[i]??0}%</span><small>${l}</small></div>`}).join('')}</div>
+          <div class="muted" style="font-size:12px;margin-top:14px">Weather data by Open-Meteo.com</div>`;
+      }catch{if(my===seq)out.innerHTML=`<div class="card muted">Couldn't reach the weather service. Check your connection and try again.</div>`}
+    }
+    $('#wGo').onclick=()=>{const q=$('#wQ').value.trim();if(q)load(q)};
+    $('#wQ').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('#wGo').click();e.target.blur()}};
+    $('#wU').onclick=()=>{S.units=S.units==='f'?'c':'f';save();$('#wU').classList.toggle('on',S.units==='f');load(S.city)};
+    load(S.city);
+    return{focus:()=>$('#wGo')};
+  }};
+
+/* --- Calendar --- */
+const dkey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+APPS.calendar={title:()=>'Calendar',icon:()=>({svg:'cal',c1:B.calendar.c1,c2:B.calendar.c2}),noAutoInput:true,
+  build(body){
+    const now=new Date();let y=now.getFullYear(),m=now.getMonth(),selK=dkey(now);
+    function draw(focusSel){
+      const first=new Date(y,m,1),start=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate(),today=dkey(new Date());
+      const cells=[];for(let i=0;i<start;i++)cells.push('<div></div>');
+      for(let d=1;d<=days;d++){const k=dkey(new Date(y,m,d)),ev=(S.events[k]||[]).length;cells.push(`<button class="cd ${k===today?'today':''} ${k===selK?'on':''}" data-d="${k}">${d}${ev?'<i></i>':''}</button>`)}
+      const ev=S.events[selK]||[],sd=new Date(selK+'T12:00');
+      body.innerHTML=`<div class="pane cal"><div><div class="calh"><button class="btn" id="cPrev">${I.left}</button><div class="h1">${first.toLocaleDateString([],{month:'long',year:'numeric'})}</div><button class="btn" id="cNext" style="transform:scaleX(-1)">${I.left}</button><button class="chip" id="cToday">Today</button></div>
+        <div class="calg">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>`<span>${d}</span>`).join('')}${cells.join('')}</div></div>
+        <div class="card calp"><div class="h2">${sd.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'})}</div>
+          <div class="evs">${ev.length?ev.map((e,i)=>`<div class="ev"><span>${esc(e)}</span><button class="btn" data-x="${i}" title="Remove">${I.close}</button></div>`).join(''):'<div class="muted">Nothing planned.</div>'}</div>
+          <div class="evadd"><input class="inp" id="cIn" maxlength="80" placeholder="Add an event"><button class="btn pri" id="cAdd">${I.plus}Add</button></div></div></div>`;
+      $('#cPrev').onclick=()=>{if(--m<0){m=11;y--}draw();$('#cPrev').focus()};
+      $('#cNext').onclick=()=>{if(++m>11){m=0;y++}draw();$('#cNext').focus()};
+      $('#cToday').onclick=()=>{y=now.getFullYear();m=now.getMonth();selK=dkey(new Date());draw(true)};
+      $$('[data-d]',body).forEach(b=>b.onclick=()=>{selK=b.dataset.d;draw(true)});
+      $$('[data-x]',body).forEach(b=>b.onclick=()=>{ev.splice(+b.dataset.x,1);if(!ev.length)delete S.events[selK];save();draw(true)});
+      const add=()=>{const v=$('#cIn').value.trim();if(!v)return;(S.events[selK]=S.events[selK]||[]).push(v);save();log('Added “'+v+'” to the calendar','cal');draw();$('#cIn').focus()};
+      $('#cAdd').onclick=add;$('#cIn').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();add()}};
+      if(focusSel)$('.cd.on',body)?.focus();
+    }
+    draw();
+    return{focus:()=>$('.cd.on',body)};
+  }};
+
+/* --- Mines --- */
+APPS.mines={title:()=>'Mines',icon:()=>({svg:'mine',c1:B.mines.c1,c2:B.mines.c2}),
+  build(body){
+    const N=9,M=10;let cells,started,over,flags,opened,t0,timer;
+    const nb=i=>{const r=Math.floor(i/N),c=i%N,o=[];for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){const rr=r+dr,cc=c+dc;if((dr||dc)&&rr>=0&&rr<N&&cc>=0&&cc<N)o.push(rr*N+cc)}return o};
+    function deal(){
+      cells=Array.from({length:N*N},()=>({mine:false,open:false,flag:false,n:0}));started=false;over=false;flags=0;opened=0;t0=0;clearInterval(timer);
+      body.innerHTML=`<div class="pane"><div class="pstat"><div><span class="muted">MINES</span><b id="mL">${M}</b></div><div><span class="muted">TIME</span><b id="mT">0</b></div><div><span class="muted">BEST</span><b>${best('mines')?best('mines')+'s':'—'}</b></div></div>
+        <div class="mines">${cells.map((_,i)=>`<button class="mc" data-i="${i}"></button>`).join('')}</div>
+        <div class="muted" style="text-align:center;margin-top:16px;font-size:13px"><kbd>Enter</kbd> Reveal &nbsp; <kbd>O</kbd> or right-click Flag</div></div>`;
+      $$('.mc',body).forEach(b=>{b.onclick=()=>reveal(+b.dataset.i);b.oncontextmenu=e=>{e.preventDefault();flag(+b.dataset.i)}});
+      $('.mc',body).focus();
+    }
+    function seed(safe){const no=new Set([safe,...nb(safe)]);let k=0;while(k<M){const i=Math.floor(Math.random()*N*N);if(!no.has(i)&&!cells[i].mine){cells[i].mine=true;k++}}
+      cells.forEach((c,i)=>c.n=nb(i).filter(j=>cells[j].mine).length)}
+    function paint(i){const c=cells[i],b=$$('.mc',body)[i];b.className='mc'+(c.open?' open n'+c.n:'')+(c.flag?' flag':'')+(c.open&&c.mine?' boom':'');
+      b.innerHTML=c.flag&&!c.open?I.flag:c.open&&c.mine?I.mine:c.open&&c.n?c.n:''}
+    function reveal(i){
+      if(over||cells[i].flag||cells[i].open)return;
+      if(!started){started=true;seed(i);t0=Date.now();timer=setInterval(()=>{const e=$('#mT');if(e)e.textContent=Math.floor((Date.now()-t0)/1000)},250)}
+      if(cells[i].mine){over=true;clearInterval(timer);cells.forEach((c,j)=>{if(c.mine){c.open=true;paint(j)}});tone(160,.5,'sawtooth',.07);
+        setTimeout(()=>modal(`<h3>Boom!</h3><p>You hit a mine. Better luck next time.</p><div class="mbtns"><button class="btn pri" id="mAgain">${I.restart}Try again</button><button class="btn" id="mQuit">Back to home</button></div>`),500);
+        setTimeout(()=>{$('#mAgain').onclick=()=>{closeModal();deal()};$('#mQuit').onclick=()=>{closeModal();closeApp()}},520);return}
+      const st=[i];while(st.length){const j=st.pop(),c=cells[j];if(c.open||c.flag)continue;c.open=true;opened++;paint(j);if(!c.n)nb(j).forEach(k=>{if(!cells[k].open)st.push(k)})}
+      tone(900,.04,'sine',.04);
+      if(opened===N*N-M){over=true;clearInterval(timer);const s=Math.max(1,Math.round((Date.now()-t0)/1000)),b=best('mines'),nbst=!b||s<b;if(nbst){S.stats.bests.mines=s;save()}
+        trophy('mines');log(`Cleared Mines in ${s}s`,'mine');sfx.trophy();
+        modal(`<h3>Board cleared!</h3><p>${s} seconds${nbst?' — new best!':''}</p><div class="mbtns"><button class="btn pri" id="mAgain">${I.restart}Play again</button><button class="btn" id="mQuit">Back to home</button></div>`);
+        $('#mAgain').onclick=()=>{closeModal();deal()};$('#mQuit').onclick=()=>{closeModal();closeApp()}}
+    }
+    function flag(i){const c=cells[i];if(over||c.open)return;c.flag=!c.flag;flags+=c.flag?1:-1;$('#mL').textContent=M-flags;paint(i);tone(c.flag?700:500,.05,'sine',.05)}
+    extraBtn(I.restart,'New game',()=>deal());
+    deal();
+    return{onClose:()=>clearInterval(timer),focus:()=>$('.mc',body),
+      handle:b=>{if(b!=='options')return false;const a=document.activeElement;if(a&&a.classList.contains('mc'))flag(+a.dataset.i);return true}};
+  }};
+
+/* --- Library: every console app and game, with add/remove from home --- */
 APPS.library={title:()=>'Library',icon:()=>({svg:'grid',c1:B.library.c1,c2:B.library.c2}),
   build(body){
-    const T=tiles().filter(t=>t.id!=='library').concat([{id:'settings',name:'Settings',svg:'gear',c1:'#5a6b8f',c2:'#232c44',open:()=>openApp('settings')},{id:'trophies',name:'Trophies',svg:'trophy',c1:'#e0a83a',c2:'#7a4a10',open:()=>openApp('trophies')}]);
-    body.innerHTML=`<div class="pane"><div class="h1">Library</div><div class="muted">${T.length} applications</div>
-      <div class="sec" style="max-width:420px"><input class="inp" id="lQ" placeholder="Search your library"></div>
-      <div class="sec grid lib" id="lG"></div></div>`;
-    const draw=q=>{$('#lG').innerHTML=T.filter(t=>!q||t.name.toLowerCase().includes(q)).map((t,i)=>`<button class="lt" data-l="${T.indexOf(t)}"><div class="lti" style="--g1:${t.c1};--g2:${t.c2}">${glyph(t)}</div><span>${esc(t.name)}</span></button>`).join('');
-      $$('[data-l]',body).forEach(b=>b.onclick=()=>T[+b.dataset.l].open())};
+    const SYS=[B.feed,B.store,B.browser,{id:'settings',name:'Settings',svg:'gear',c1:'#5a6b8f',c2:'#232c44',open:()=>openApp('settings')},{id:'trophies',name:'Trophies',svg:'trophy',c1:'#e0a83a',c2:'#7a4a10',open:()=>openApp('trophies')}];
+    const groups=()=>[['Games',NATIVE_IDS().filter(k=>B[k].badge==='GAME').map(k=>B[k])],['Apps',NATIVE_IDS().filter(k=>B[k].badge!=='GAME').map(k=>B[k])],['System',SYS],['Web apps',S.apps.map(webTile)]];
+    body.innerHTML=`<div class="pane"><div class="h1">Library</div><div class="muted">Everything on your console. Add apps and games to your home screen, or open them from here.</div>
+      <div class="sec" style="max-width:420px"><input class="inp" id="lQ" placeholder="Search your library" spellcheck="false" autocomplete="off"></div><div id="lG"></div></div>`;
+    let all=[];
+    const draw=q=>{all=[];
+      $('#lG').innerHTML=groups().map(([name,list])=>{list=list.filter(t=>!q||t.name.toLowerCase().includes(q));if(!list.length)return'';
+        return`<div class="lgh">${name}</div><div class="grid lib">${list.map(t=>{const i=all.push(t)-1,pin=B[t.id]&&NATIVE_IDS().includes(t.id),on=pin&&S.home.includes(t.id);
+          return`<div class="lt"><button class="ltb" data-l="${i}"><div class="lti" style="--g1:${t.c1};--g2:${t.c2}">${glyph(t)}</div><span>${esc(t.name)}</span></button>${pin?`<button class="lpin ${on?'on':''}" data-p="${t.id}">${on?I.check+'On home':I.plus+'Add to home'}</button>`:''}</div>`}).join('')}</div>`}).join('')||'<div class="card muted">Nothing matches that search.</div>';
+      $$('[data-l]',body).forEach(b=>b.onclick=()=>all[+b.dataset.l].open());
+      $$('[data-p]',body).forEach(b=>b.onclick=()=>{const k=b.dataset.p;S.home.includes(k)?unpinTile(k):pinTile(k);draw($('#lQ').value.toLowerCase());$(`[data-p="${k}"]`,body)?.focus()})};
     draw('');$('#lQ').oninput=e=>draw(e.target.value.toLowerCase());
-    return{focus:()=>$('.lt',body)};
+    return{focus:()=>$('.ltb',body)};
   }};
 
 /* --- Music (generative) --- */
